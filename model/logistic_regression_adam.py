@@ -3,8 +3,10 @@ import torch
 class AdamRegression:
     def __init__(self, num_classes, num_features, device='cpu') -> None:
         self.device = device
-        self.w = torch.zeros(size=[num_features, num_classes],requires_grad=True, device=self.device)
-        self.b = torch.zeros(size=[num_classes,1], requires_grad=True, device = self.device)
+        w = torch.rand(size=[num_features, num_classes], device=self.device) * 0.01
+        self.w = w.clone().detach().requires_grad_(True)
+        b = torch.rand(size=[num_classes,1], device=self.device) * 0.01
+        self.b = b.clone().detach().requires_grad_(True)
         self.v_dw = torch.zeros(size=[num_features, num_classes], device=self.device)
         self.v_db = torch.zeros(size=[num_classes, 1], device=self.device)
         self.s_dw = torch.zeros(size=[num_features, num_classes], device=self.device)
